@@ -1,35 +1,55 @@
+import { Alert, Button, Snackbar, Typography } from '@mui/material';
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Unstable_Grid2';
 import CardProduct from "../../../components/listcard/card"
 import Sorting from '../../../components/sorting';
-import SearchBar from '../../../components/Search';
-import { Typography } from '@mui/material';
+import useDarkTheme from '../../../utils/customHooks/darkTheme';
+import useFetchData from '../../../utils/customHooks/useFetch';
+import useScrollBottom from '../../../utils/customHooks/useScroll';
+import useViewPort from '../../../utils/customHooks/useViewPort';
+import useWindowInfo from '../../../utils/customHooks/useWindowInfo';
 
 export default function Home() {
 
-  const [productList, setProductList] = React.useState([]);
-
-
-  React.useEffect(() => {
+  const [productList] = useFetchData('https://fakestoreapi.com/products')
+  const last = useScrollBottom("scroll")
+  const inside =useViewPort("scroll")
+  const  lat  = useWindowInfo(window) 
   
 
-fetch('https://fakestoreapi.com/products')
-            .then(res=>res.json())
-            .then(json=>setProductList((json)))
-},[])
+  //console.log("infor", info)
+  console.log("lat",  lat)
 
+  const handleDark=(e) => {
+    // setDarkMode(!enabled)
+    console.log("dark")
+}
 
-  console.log("list", productList)
+   const [open, setOpen] = React.useState(false);
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+  
+     
+ //console.log("list", productList)
 
   return (<>
+    <Typography variant='span' id="geo">leo</Typography>
+    <button onClick={(e) => {
+    handleDark(e)
+    }}>Theme</button>
+
+    
+    
     <div>
       <Sorting />
     </div>
-      <div>  
-     
-      <CardProduct productList={productList } />
-    </div></> 
+      <div>       
+      <CardProduct productList={productList} />
+      {/* {last? console.log("at last") : console.log("not reached")} */}
+           </div></> 
   );
 }

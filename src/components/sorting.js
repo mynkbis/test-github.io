@@ -14,7 +14,7 @@ export default function Sorting() {
 
     return (
       <Box sx={{display: "flex",justifyContent:"end" }}>
-    <FormControl sx={{ m: 1, minWidth: 220 }} size="small">
+    <FormControl sx={{ m: 1, minWidth: 220 }} size="small" id="sorting">
       <InputLabel id="demo-select-small">Sort by</InputLabel>
       <Select
         labelId="demo-select-small"
