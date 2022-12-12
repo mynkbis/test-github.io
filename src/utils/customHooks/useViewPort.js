@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-const useScrollBottom = () => {
- const [inside, setInside] = useState();
+const useViewPort = () => {
+    const [inside, setInside] = useState();
+    // div is accessed using id
  const box = document.querySelector('#sorting');
     
  function isInViewport(elm) {
@@ -23,7 +24,7 @@ const useScrollBottom = () => {
     )
 }
 
-export default useScrollBottom
+export default useViewPort
 
 
 // 1. true/false on viewport(if elem is visible)
