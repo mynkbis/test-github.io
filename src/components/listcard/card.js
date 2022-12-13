@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
-const CardProduct = ({ productList, listRef }) => {
+const CardProduct = ({ productList, error, loading }) => {
 const navigate=useNavigate()
   //  const listtest = useRef();
 
@@ -13,11 +13,15 @@ const navigate=useNavigate()
         navigate(`/ProductDetail${id}`)
     }
     
+ console.log("productlist", productList)
+
      return (
-         <Box sx={{ p: 1 }}>{!productList ? "Loading..." :
+         <Box sx={{ p: 1 }}>{loading ? "Loading..." :
              <Grid
                  container               
              >
+                 
+                 
                  {productList?.map((item, index) => (
                      <Grid item={true} key={item?.id} {...{ xs: 12, sm: 6, md: 4, lg: 3 }} minHeight={350}  >
                          <Box sx={{ margin:"5px", 

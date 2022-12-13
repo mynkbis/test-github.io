@@ -2,7 +2,6 @@ import { Alert, Box, Button, Snackbar, Typography } from '@mui/material';
 import * as React from 'react';
 import CardProduct from "../../../components/listcard/card"
 import Sorting from '../../../components/sorting';
-import useDarkTheme from '../../../utils/customHooks/darkTheme';
 import useFetchData from '../../../utils/customHooks/useFetch';
 import useKeyboard from '../../../utils/customHooks/useKeyboard';
 import useScrollBottom from '../../../utils/customHooks/useScroll';
@@ -11,35 +10,35 @@ import useWindowInfo from '../../../utils/customHooks/useWindowInfo';
 
 export default function Home() {
 
-  const [productList] = useFetchData('https://fakestoreapi.com/products')
- // const last = useScrollBottom("scroll")
- // const inside = useViewPort()
-  const [details, setDetails] = React.useState(false);
+ //  const [productList] = useFetchData('https://fakestoreapi.com/products')
+   const [details, setDetails] = React.useState(false);
  // either true or false need to pass to use the hook so detail state is doing here the same 
-  const info = useWindowInfo(details)
-  const code =useKeyboard("")
+   const info = useWindowInfo(details)
+   const code =useKeyboard("")
   
-
- //console.log("geo status", info)
-  const handleDark=(e) => {
-    // setDarkMode(!enabled)
-    console.log("dark")
-}
-
-//  console.log("details", details)
+//  const { loading, error, data, header } = useFetchData(
+//     "GET",
+//     "https://jsonplaceholder.typicode.com/posts/1",
+//    {},
+//    "header",
+//  );
   
-  const HandleClick = () => {
-setDetails(!details)
+  const { loading, error, data } = useFetchData(
+    "GET",
+    "https://fakestoreapi.com/products,
+  {}
+  );
+
+
+ const HandleClick = () => {
+  setDetails(!details)
   }
-
- //console.log("list", productList)
-
-  return (<>
-
+ 
+  return (
+    <>
     <Typography variant='div' sx={{m:2}} >
       <span className='p'></span>
-      <br/>
-   
+      <br/>   
       {!details ?
         <Button sx={{
           background: "#0D4C92", '&:hover': { background: "#ffff", color: "#0D4C92" }, color: "#ffff", m:2
@@ -64,21 +63,13 @@ setDetails(!details)
             )
           }) }
        </Box>      : "Currently we are facing issue with your network, kindly refresh the page"}
-    </Typography>
-
-    
-    
-    {/* <button onClick={(e) => {
-    handleDark(e)
-    }}>Theme</button> */}
-
-    
+    </Typography>      
     
     <div>
       <Sorting />
     </div>
       <div>       
-      <CardProduct productList={productList} />
+      <CardProduct productList={data} loading={loading} error={error} />
       {/* {last? console.log("at last") : console.log("not reached")} */}
            </div></> 
   );
